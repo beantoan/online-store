@@ -1,0 +1,103 @@
+<div class="register-container">
+  <h2>Register</h2>
+  <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        [(ngModel)]="user.name"
+        required
+        minlength="2"
+        #nameInput="ngModel">
+      @if (nameInput.invalid && (nameInput.dirty || nameInput.touched)) {
+        <div class="error-message">
+          @if (nameInput.errors?.['required']) {
+            Name is required.
+          } @else if (nameInput.errors?.['minlength']) {
+            Name must be at least 2 characters long.
+          }
+        </div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        [(ngModel)]="user.email"
+        required
+        email
+        #emailInput="ngModel">
+      @if (emailInput.invalid && (emailInput.dirty || emailInput.touched)) {
+        <div class="error-message">
+          @if (emailInput.errors?.['required']) {
+            Email is required.
+          } @else if (emailInput.errors?.['email']) {
+            Please enter a valid email address.
+          }
+        </div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        [(ngModel)]="user.password"
+        required
+        minlength="6"
+        #passwordInput="ngModel">
+      @if (passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)) {
+        <div class="error-message">
+          @if (passwordInput.errors?.['required']) {
+            Password is required.
+          } @else if (passwordInput.errors?.['minlength']) {
+            Password must be at least 6 characters long.
+          }
+        </div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="confirmPassword">Confirm Password:</label>
+      <input
+        type="password"
+        id="confirmPassword"
+        name="confirmPassword"
+        [(ngModel)]="user.confirmPassword"
+        required
+        #confirmPasswordInput="ngModel">
+      @if (confirmPasswordInput.invalid && (confirmPasswordInput.dirty || confirmPasswordInput.touched)) {
+        <div class="error-message">
+          Confirm Password is required.
+        </div>
+      }
+    </div>
+
+    @if (errorMessage) {
+      <div class="error-message">{{ errorMessage }}</div>
+    }
+
+    @if (successMessage) {
+      <div class="success-message">{{ successMessage }}</div>
+    }
+
+    <button type="submit" [disabled]="registerForm.form.invalid || isLoading">
+      @if (isLoading) {
+        Registering...
+      } @else {
+        Register
+      }
+    </button>
+  </form>
+
+  <div class="login-link">
+    Already have an account? <a routerLink="/login">Login here</a>
+  </div>
+</div>

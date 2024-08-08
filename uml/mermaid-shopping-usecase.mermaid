@@ -1,0 +1,20 @@
+graph LR
+    Customer((Customer))
+    subgraph Online Web Store
+    A[Register]
+    B[Login]
+    C[Browse Products]
+    D[Add to Cart]
+    E[Make Order]
+    F[Pay Online]
+    end
+    Customer --> A
+    Customer --> B
+    Customer --> C
+    Customer --> D
+    Customer --> E
+    Customer --> F
+    A -.-> |<<include>>| B
+    C -.-> |<<extend>>| D
+    D -.-> |<<include>>| E
+    E -.-> |<<include>>| F

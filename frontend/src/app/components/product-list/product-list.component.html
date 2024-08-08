@@ -1,0 +1,21 @@
+<section class="product-list">
+  <h2>Products</h2>
+
+  @if (products.length > 0) {
+    <div class="product-grid">
+      @for (product of products; track product.id) {
+        <div class="product-card">
+          <h3>{{ product.name }}</h3>
+          <p class="description">{{ product.description }}</p>
+          <p class="price">Price: ${{ product.price.toFixed(2) }}</p>
+          <p class="stock">In Stock: {{ product.stock }}</p>
+          <button (click)="addToCart(product)" [disabled]="product.stock === 0">
+            {{ product.stock > 0 ? 'Add to Cart' : 'Out of Stock' }}
+          </button>
+        </div>
+      }
+    </div>
+  } @else {
+    <p>No products available at the moment. Please check back later.</p>
+  }
+</section>

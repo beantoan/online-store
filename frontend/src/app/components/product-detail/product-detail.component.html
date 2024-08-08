@@ -1,0 +1,33 @@
+<div class="product-detail">
+  @if (loading) {
+    <p>Loading product details...</p>
+  } @else if (error) {
+    <p class="error">{{ error }}</p>
+  } @else if (product) {
+    <h2>{{ product.name }}</h2>
+    <div class="product-info">
+      <div class="product-image">
+        <!-- Placeholder for product image -->
+        <div class="image-placeholder"></div>
+      </div>
+      <div class="product-details">
+        <p class="description">{{ product.description }}</p>
+        <p class="price">Price: ${{ product.price.toFixed(2) }}</p>
+        <p class="stock">In Stock: {{ product.stock }}</p>
+
+        <div class="quantity-control">
+          <label for="quantity">Quantity:</label>
+          <button (click)="decrementQuantity()" [disabled]="quantity === 1">-</button>
+          <input type="number" id="quantity" [(ngModel)]="quantity" min="1" [max]="product.stock">
+          <button (click)="incrementQuantity()" [disabled]="quantity >= product.stock">+</button>
+        </div>
+
+        <button class="add-to-cart" (click)="addToCart()" [disabled]="product.stock === 0 || quantity > product.stock">
+          {{ product.stock > 0 ? 'Add to Cart' : 'Out of Stock' }}
+        </button>
+      </div>
+    </div>
+  } @else {
+    <p>Product not found.</p>
+  }
+</div>

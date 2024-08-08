@@ -1,0 +1,22 @@
+<div class="app-container">
+  <header>
+    <h1>{{ title }}</h1>
+    <ng-container *ngIf="authService.currentUser$ | async">
+      <nav>
+        <ul>
+          <li><a routerLink="/products">Products</a></li>
+          <li><a routerLink="/cart">Cart</a></li>
+          <li><a (click)="logout()">Logout</a></li>
+        </ul>
+      </nav>
+    </ng-container>
+  </header>
+
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Online Store. All rights reserved.</p>
+  </footer>
+</div>

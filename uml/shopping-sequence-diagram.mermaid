@@ -1,0 +1,48 @@
+sequenceDiagram
+    actor Customer
+    participant UI as User Interface
+    participant Auth as Authentication System
+    participant Catalog as Product Catalog
+    participant Cart as Shopping Cart
+    participant Order as Order System
+    participant Payment as Payment System
+
+    Customer->>UI: Access website
+    Customer->>UI: Register (if new user)
+    UI->>Auth: Create account
+    Auth-->>UI: Account created
+    UI-->>Customer: Registration confirmed
+
+    Customer->>UI: Login
+    UI->>Auth: Authenticate
+    Auth-->>UI: Authentication result
+    UI-->>Customer: Login confirmed
+
+    Customer->>UI: Browse products
+    UI->>Catalog: Request product list
+    Catalog-->>UI: Return product list
+    UI-->>Customer: Display products
+
+    Customer->>UI: Add product to cart
+    UI->>Cart: Add item
+    Cart-->>UI: Cart updated
+    UI-->>Customer: Confirm item added
+
+    Customer->>UI: View cart
+    UI->>Cart: Request cart contents
+    Cart-->>UI: Return cart contents
+    UI-->>Customer: Display cart
+
+    Customer->>UI: Proceed to checkout
+    UI->>Order: Create order
+    Order->>Cart: Get cart contents
+    Cart-->>Order: Return cart contents
+    Order-->>UI: Order created
+    UI-->>Customer: Display order summary
+
+    Customer->>UI: Confirm order
+    UI->>Payment: Process payment
+    Payment-->>UI: Payment result
+    UI->>Order: Update order status
+    Order-->>UI: Order status updated
+    UI-->>Customer: Display order confirmation
